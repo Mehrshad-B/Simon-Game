@@ -27,6 +27,7 @@ $(".btn").on("click", function () {
   userClickedPattern.push(userChosenColour);
   makeSound(userChosenColour);
   animatePress(userChosenColour);
+  checkAnswer();
 });
 
 function makeSound(key) {
@@ -59,9 +60,17 @@ function animatePress(currentcolour) {
   }, 100);
 }
 
-$(document).keyPress(function () {
-  if (gamePattern.length == 0) {
+$(document).keypress(function () {
+  nextSequence();
+});
+
+function checkAnswer() {
+  if (
+    userClickedPattern[userClickedPattern.length - 1] ==
+    gamePattern[gamePattern.length - 1]
+  ) {
     nextSequence();
   } else {
+    makeSound("wrong");
   }
-});
+}
