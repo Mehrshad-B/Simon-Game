@@ -1,6 +1,6 @@
 var buttonColours = ["red", "blue", "green", "yellow"];
-var userClickedPattern = [];
 var gamePattern = [];
+var userClickedPattern = [];
 var level = 0;
 
 var blueAudio = new Audio("sounds/blue.mp3");
@@ -29,6 +29,18 @@ $(".btn").on("click", function () {
   animatePress(userChosenColour);
   checkAnswer(gamePattern[gamePattern.length - 1]);
 });
+
+function checkAnswer(currentLevel) {
+  if (userClickedPattern[userClickedPattern.length - 1] === currentLevel) {
+    if (userClickedPattern == gamePattern) {
+      //come to this for checking if both arrays are the same so game can continue
+      setTimeout(nextSequence(), 1000);
+      userClickedPattern = [];
+    }
+  } else {
+    alert("wrong");
+  }
+}
 
 function makeSound(key) {
   switch (key) {
@@ -63,11 +75,3 @@ function animatePress(currentcolour) {
 $(document).keypress(function () {
   nextSequence();
 });
-
-function checkAnswer(currentLevel) {
-  if (userClickedPattern[userClickedPattern.length - 1] === currentLevel) {
-    setTimeout(nextSequence(), 1000);
-  } else {
-    alert("wrong");
-  }
-}
