@@ -27,7 +27,7 @@ $(".btn").on("click", function () {
   userClickedPattern.push(userChosenColour);
   makeSound(userChosenColour);
   animatePress(userChosenColour);
-  checkAnswer();
+  checkAnswer(gamePattern[gamePattern.length - 1]);
 });
 
 function makeSound(key) {
@@ -64,13 +64,10 @@ $(document).keypress(function () {
   nextSequence();
 });
 
-function checkAnswer() {
-  if (
-    userClickedPattern[userClickedPattern.length - 1] ==
-    gamePattern[gamePattern.length - 1]
-  ) {
-    nextSequence();
+function checkAnswer(currentLevel) {
+  if (userClickedPattern[userClickedPattern.length - 1] === currentLevel) {
+    setTimeout(nextSequence(), 1000);
   } else {
-    makeSound("wrong");
+    alert("wrong");
   }
 }
