@@ -31,10 +31,8 @@ $(".btn").on("click", function () {
 });
 
 function arraysAreEqual(arr1, arr2) {
-  // First check length
   if (arr1.length !== arr2.length) return false;
 
-  // Then check each element
   for (let i = 0; i < arr1.length; i++) {
     if (arr1[i] !== arr2[i]) return false;
   }
@@ -49,11 +47,21 @@ function checkAnswer(currentLevel) {
       userClickedPattern = [];
     }
   } else {
-    alert("wrong");
     makeSound("wrong");
     $("body").addClass("game-over");
     animateGameOver();
+    $("h1").text("Game Over, Press Any Key to Restart");
+    startOver();
   }
+}
+
+function startOver() {
+  gamePattern = [];
+  userClickedPattern = [];
+  $(document).keypress(function () {
+    level = 0;
+    nextSequence();
+  });
 }
 
 function makeSound(key) {
@@ -82,8 +90,8 @@ function makeSound(key) {
 function animateGameOver() {
   $("body").addClass("game-over");
   setTimeout(function () {
-    $("body").removeClass("game");
-  }, 1000);
+    $("body").removeClass("game-over");
+  }, 100);
 }
 
 function animatePress(currentcolour) {
